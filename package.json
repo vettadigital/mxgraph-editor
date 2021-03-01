@@ -1,29 +1,24 @@
 {
-  "name": "mxgraph-editor",
-  "version": "1.0.3",
+  "name": "@digital/mxgraph-editor",
+  "version": "1.0.5",
   "description": "mxgraph editor",
   "main": "lib/index.js",
+  "author": "Vetta Tecnologia S.A.",
+  "license": "SEE LICENSE IN license.md",
+  "publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/vettadigital/_packaging/vettadigital/npm/registry/"
+  },
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
     "lib": "babel src --out-dir lib && gulp",
     "prepublish": "npm run lib"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:korbinzhao/mxgraph-editor.git"
-  },
   "keywords": [
     "mxgraph",
     "editor",
     "mxgraph editor"
   ],
-  "author": "korbinzhao",
-  "bugs": {
-    "url": "https://github.com/korbinzhao/mxgraph-editor/issues"
-  },
-  "license": "MIT",
-  "homepage": "https://github.com/korbinzhao/mxgraph-editor",
   "devDependencies": {
     "autoprefixer": "^9.4.3",
     "babel-cli": "^6.26.0",
@@ -42,7 +37,7 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-less": "^4.0.1",
     "gulp-postcss": "^8.0.0",
     "gulp-replace": "^1.0.0",
