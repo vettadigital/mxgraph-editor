@@ -13,7 +13,11 @@
     "type": "git",
     "url": "git@github.com:korbinzhao/mxgraph-editor.git"
   },
-  "keywords": ["mxgraph", "editor", "mxgraph editor"],
+  "keywords": [
+    "mxgraph",
+    "editor",
+    "mxgraph editor"
+  ],
   "author": "korbinzhao",
   "bugs": {
     "url": "https://github.com/korbinzhao/mxgraph-editor/issues"
@@ -59,7 +63,7 @@
     "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
-    "antd": "^3.8.2",
+    "antd": "~4.6.6",
     "prop-types": "^15.6.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

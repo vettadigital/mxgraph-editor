@@ -863,39 +863,39 @@ export default {
       // this.images.push(img);
 
       // Delete
-      const img = mxUtils.createImage(  //eslint-disable-line
-        'https://img.alicdn.com/tfs/TB1nt90dgHqK1RjSZFkXXX.WFXa-32-32.png'
-      ); //eslint-disable-line
-      img.setAttribute('title', 'Delete');
-      img.style.position = 'absolute';
-      img.style.cursor = 'pointer';
-      img.style.width = '16px';
-      img.style.height = '16px';
-      img.style.left = `${state.x + state.width}px`;
-      img.style.top = `${state.y - 16}px`;
+      // const img = mxUtils.createImage(  //eslint-disable-line
+      //   'https://img.alicdn.com/tfs/TB1nt90dgHqK1RjSZFkXXX.WFXa-32-32.png'
+      // ); //eslint-disable-line
+      // img.setAttribute('title', 'Delete');
+      // img.style.position = 'absolute';
+      // img.style.cursor = 'pointer';
+      // img.style.width = '16px';
+      // img.style.height = '16px';
+      // img.style.left = `${state.x + state.width}px`;
+      // img.style.top = `${state.y - 16}px`;
 
-      mxEvent.addGestureListeners(  //eslint-disable-line
-        img, //eslint-disable-line
-        mxUtils.bind(this, (evt) => {  //eslint-disable-line
-          //eslint-disable-line
-          // Disables dragging the image
-          mxEvent.consume (evt); //eslint-disable-line
-        })
-      );
+      // mxEvent.addGestureListeners(  //eslint-disable-line
+      //   img, //eslint-disable-line
+      //   mxUtils.bind(this, (evt) => {  //eslint-disable-line
+      //     //eslint-disable-line
+      //     // Disables dragging the image
+      //     mxEvent.consume (evt); //eslint-disable-line
+      //   })
+      // );
 
-      mxEvent.addListener(  //eslint-disable-line
-        img,
-        'click', //eslint-disable-line
-        mxUtils.bind(this, function (evt) {  //eslint-disable-line
-          //eslint-disable-line
-          graph.removeCells([state.cell]);
-          mxEvent.consume (evt); //eslint-disable-line
-          this.destroy();
-        })
-      );
+      // mxEvent.addListener(  //eslint-disable-line
+      //   img,
+      //   'click', //eslint-disable-line
+      //   mxUtils.bind(this, function (evt) {  //eslint-disable-line
+      //     //eslint-disable-line
+      //     graph.removeCells([state.cell]);
+      //     mxEvent.consume (evt); //eslint-disable-line
+      //     this.destroy();
+      //   })
+      // );
 
-      state.view.graph.container.appendChild(img);
-      this.images.push(img);
+      // state.view.graph.container.appendChild(img);
+      // this.images.push(img);
     }
 
     mxIconSet.prototype.destroy = function () {
@@ -1034,7 +1034,7 @@ export default {
     }
 
     let hasIdO = false;
-    if (rootEle && rootEle.firstElementChild && rootEle.firstElementChild.id === '0') {
+    if (rootEle && rootEle.firstElementChild) {
       hasIdO = true;
     }
 
