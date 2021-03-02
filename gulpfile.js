@@ -15,11 +15,11 @@ gulp.task('autoprefixer', () => gulp.src('src/*.css')
   .pipe(sourcemaps.write('.'))
   .pipe(gulp.dest('./lib')));
 
-// gulp.task('replace', () => {
-//   gulp.src('lib/*.js')
-//     .pipe(replace(/\/(.+)\.less/, '/$1.css'))
-//     .pipe(replace(/\/(.+)\.styl/, '/$1.css'))
-//     .pipe(gulp.dest('lib'));
-// });
+gulp.task('replace', () => (
+  gulp.src('lib/*.js')
+    .pipe(replace(/\/(.+)\.less/, '/$1.css'))
+    .pipe(replace(/\/(.+)\.styl/, '/$1.css'))
+    .pipe(gulp.dest('lib'))));
 
-gulp.task('default', gulp.series(['less', 'autoprefixer']));
+
+gulp.task('default', gulp.series(['less', 'autoprefixer', 'replace']));
