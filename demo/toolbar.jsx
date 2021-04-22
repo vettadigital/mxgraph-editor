@@ -36,6 +36,8 @@ class Toolbar extends React.Component {
           className="toolbar-btn"
           onClick={() => {
             const diagramXml = window.localStorage.getItem('autosaveXml');
+            let xml = editor.getGraphXml();
+            console.log('xml', xml);
 
             updateDiagramData(diagramXml);
           }}

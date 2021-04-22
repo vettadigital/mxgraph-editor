@@ -1,5 +1,5 @@
 import React from 'react';
-import { message, Layout } from 'antd';
+import { message, Layout, Input, Button } from 'antd';
 
 import Sidebar from './sidebar';
 import Toolbar from './toolbar';
@@ -10,15 +10,21 @@ import CARD_SHAPES from './shape-config/card-shape';
 import SVG_SHAPES from './shape-config/svg-shape.xml';
 
 import './my-editor.less';
+import PropsForm from './Changes/PropsForm';
 
-const { Sider, Content } = Layout;
+const { Sider, Content, Footer } = Layout;
 
 class MyEditor extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      editor: null
+      editor: null,
+      customShapeProps: undefined,
+      graphShapeProps: undefined,
+      showProps: false,
+      selectedShapeName: undefined,
+      cell: undefined,
     };
 
     this.graphContainerClickCount = 0;
@@ -48,7 +54,7 @@ class MyEditor extends React.Component {
 
     editor.initCustomPort('https://gw.alicdn.com/tfs/TB1PqwZzzDpK1RjSZFrXXa78VXa-200-200.png');
 
-    const xml = window.localStorage.getItem('autosaveXml');
+    const xml = '<mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="0" fold="1" page="0" pageScale="1.5" pageWidth="827" pageHeight="1169"><root><mxCell id="klh07h3q"/><mxCell id="klh07h3r" parent="klh07h3q"/><mxCell id="cell1614023984761" value="rectangle" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="klh07h3r" shapeName="Rectangle"><mxGeometry x="120" y="80" width="120" height="60" as="geometry"/></mxCell><mxCell id="cell1614023984762" value="circle" style="shape=ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="klh07h3r" shapeName="Circle"><mxGeometry x="140" y="220" width="80" height="80" as="geometry"/></mxCell><mxCell id="klh07o17" style="exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="klh07h3r" source="cell1614023984761" target="cell1614023984762"><mxGeometry relative="1" as="geometry"/></mxCell><mxCell id="klh07ugl" style="exitX=1;exitY=0.5;entryX=0.75;entryY=1;" edge="1" parent="klh07h3r" source="cell1614023984762" target="cell1614023984761"><mxGeometry relative="1" as="geometry"/></mxCell></root></mxGraphModel>';
 
     this.editor.renderGraphFromXml(xml);
 
@@ -71,6 +77,7 @@ class MyEditor extends React.Component {
   };
 
   cellCreatedFunc = (currentCell) => {
+    console.log(currentCell);
     const allCells = this.editor.getAllCells();
 
     let sameShapeNameCount = 0;
@@ -84,8 +91,13 @@ class MyEditor extends React.Component {
       });
 
     const labelName = currentCell.value;
+    const customProps = currentCell.customProps;
 
     this.editor.renameCell(`${labelName}${sameShapeNameCount}`, currentCell);
+    if (customProps) {
+      Object.keys(customProps).forEach((key) => this.editor.updateStyle(currentCell, key, customProps[key]));
+    }
+    
   };
 
   deleteFunc = (cells) => {
@@ -114,6 +126,9 @@ class MyEditor extends React.Component {
 
   clickFunc = (cell) => {
     console.log('click', cell);
+    const show = cell ? true : false;
+    const shapeName = cell ? cell.value : undefined;
+    this.setState({showProps: show, selectedShapeName: shapeName, cell});
   };
 
   undoFunc = (histories) => {
@@ -128,6 +143,15 @@ class MyEditor extends React.Component {
     console.log(`update diagram: ${data}`);
 
     message.info('diagram save success');
+  }
+
+  updateProps = (cell, values) => {
+    if (values) {
+      Object.keys(values).forEach((k) => {
+        this.editor.updateStyle(cell, k, values[k]);
+        cell.customProps[k] = values[k];
+      });
+    }
   }
 
   render() {
@@ -150,6 +174,12 @@ class MyEditor extends React.Component {
               <div className="graph-content" key="graphcontent" />
             </div>
           </Content>
+          {this.state.showProps && (<Footer>
+            <div className="graph-footer">
+              <h3>{this.state.selectedShapeName}</h3>
+              <PropsForm cell={this.state.cell} handleSet={this.updateProps} />
+            </div>
+          </Footer>)}
         </Layout>
       </div>
     );

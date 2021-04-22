@@ -82,6 +82,7 @@ export default {
         style[mxConstants.STYLE_ARCSIZE] = 10; //eslint-disable-line
         style[mxConstants.STYLE_STROKECOLOR] = '#ffffff'; //eslint-disable-line
         style[mxConstants.STYLE_FILLCOLOR] = '#ffffff'; //eslint-disable-line
+        style['dataProperty'] = { key: 'teste', value: 'teste'};
         graph.getStylesheet().putCellStyle(shape.key, style);
       });
 
@@ -117,6 +118,7 @@ export default {
         const shapeName = item.getAttribute('data-shape-name');
         const shapeLabel = item.getAttribute('data-shape-label');
         const shapeContent = item.getAttribute('data-shape-content');
+        const customProps = item.getAttribute('data-shape-props') ? JSON.parse(item.getAttribute('data-shape-props')) : undefined;
         let isEdge = false;
 
         let shapeStyle = shapeName;
@@ -152,6 +154,7 @@ export default {
           isEdge,
           shapeStyle,
           cellCreatedFunc,
+          customProps
         });
       });
   },
@@ -167,6 +170,7 @@ export default {
       id,
       isEdge,
       cellCreatedFunc,
+      customProps,
     } = config;
 
     let { width, height } = config;
@@ -229,6 +233,7 @@ export default {
               shapeStyle
             );
             cell.shapeName = shapeName;
+            cell.customProps = customProps;
 
             cellCreatedFunc && cellCreatedFunc(cell);
           } else {
@@ -863,39 +868,39 @@ export default {
       // this.images.push(img);
 
       // Delete
-      // const img = mxUtils.createImage(  //eslint-disable-line
-      //   'https://img.alicdn.com/tfs/TB1nt90dgHqK1RjSZFkXXX.WFXa-32-32.png'
-      // ); //eslint-disable-line
-      // img.setAttribute('title', 'Delete');
-      // img.style.position = 'absolute';
-      // img.style.cursor = 'pointer';
-      // img.style.width = '16px';
-      // img.style.height = '16px';
-      // img.style.left = `${state.x + state.width}px`;
-      // img.style.top = `${state.y - 16}px`;
+      const img = mxUtils.createImage(  //eslint-disable-line
+        'https://img.alicdn.com/tfs/TB1nt90dgHqK1RjSZFkXXX.WFXa-32-32.png'
+      ); //eslint-disable-line
+      img.setAttribute('title', 'Delete');
+      img.style.position = 'absolute';
+      img.style.cursor = 'pointer';
+      img.style.width = '16px';
+      img.style.height = '16px';
+      img.style.left = `${state.x + state.width}px`;
+      img.style.top = `${state.y - 16}px`;
 
-      // mxEvent.addGestureListeners(  //eslint-disable-line
-      //   img, //eslint-disable-line
-      //   mxUtils.bind(this, (evt) => {  //eslint-disable-line
-      //     //eslint-disable-line
-      //     // Disables dragging the image
-      //     mxEvent.consume (evt); //eslint-disable-line
-      //   })
-      // );
+      mxEvent.addGestureListeners(  //eslint-disable-line
+        img, //eslint-disable-line
+        mxUtils.bind(this, (evt) => {  //eslint-disable-line
+          //eslint-disable-line
+          // Disables dragging the image
+          mxEvent.consume (evt); //eslint-disable-line
+        })
+      );
 
-      // mxEvent.addListener(  //eslint-disable-line
-      //   img,
-      //   'click', //eslint-disable-line
-      //   mxUtils.bind(this, function (evt) {  //eslint-disable-line
-      //     //eslint-disable-line
-      //     graph.removeCells([state.cell]);
-      //     mxEvent.consume (evt); //eslint-disable-line
-      //     this.destroy();
-      //   })
-      // );
+      mxEvent.addListener(  //eslint-disable-line
+        img,
+        'click', //eslint-disable-line
+        mxUtils.bind(this, function (evt) {  //eslint-disable-line
+          //eslint-disable-line
+          graph.removeCells([state.cell]);
+          mxEvent.consume (evt); //eslint-disable-line
+          this.destroy();
+        })
+      );
 
-      // state.view.graph.container.appendChild(img);
-      // this.images.push(img);
+      state.view.graph.container.appendChild(img);
+      this.images.push(img);
     }
 
     mxIconSet.prototype.destroy = function () {
@@ -1027,6 +1032,7 @@ export default {
   // check the xmlnode format to avoid error
   formatXmlNode(xmlNode) {
     const rootEle = xmlNode && xmlNode.firstElementChild;
+    console.log({rootEle});
     
     let hasRoot = false;
     if (rootEle && rootEle.tagName === 'root') {
@@ -1034,7 +1040,7 @@ export default {
     }
 
     let hasIdO = false;
-    if (rootEle && rootEle.firstElementChild) {
+    if (rootEle && rootEle.firstElementChild ) {
       hasIdO = true;
     }
 

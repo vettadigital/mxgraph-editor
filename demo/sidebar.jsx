@@ -65,6 +65,7 @@ const SIDEBAR_SVG_SHAPES = [{
   logo: 'https://img.alicdn.com/tfs/TB1i4I1wxTpK1RjSZR0XXbEwXXa-80-80.svg',
   width: 80,
   height: 80,
+  dataProps: { strokeColor: 'orange', fillColor: 'orange'}
 },
 {
   name: 'electricity earnings',
@@ -72,6 +73,7 @@ const SIDEBAR_SVG_SHAPES = [{
   logo: 'https://img.alicdn.com/tfs/TB1MVA2wr2pK1RjSZFsXXaNlXXa-80-80.svg',
   width: 80,
   height: 80,
+  dataProps: { strokeColor: 'red', fillColor: 'red'}
 },
 {
   name: 'monitor',
@@ -79,27 +81,29 @@ const SIDEBAR_SVG_SHAPES = [{
   logo: 'https://img.alicdn.com/tfs/TB1DildwNYaK1RjSZFnXXa80pXa-80-80.svg',
   width: 80,
   height: 80,
+  dataProps: { strokeColor: 'blue', fillColor: 'blue'}
 }];
 
-const SIDEBAR_CARD_SHAPES = [{
-  name: 'primary equipment',
-  key: 'zhushebei',
-  logo: 'https://img.alicdn.com/tfs/TB1eD9LdgHqK1RjSZJnXXbNLpXa-144-128.png',
-  width: 100,
-  height: 80
-}, {
-  name: 'auxiliary equipment',
-  key: 'fujiashebei',
-  logo: 'https://img.alicdn.com/tfs/TB1ejUeiAPoK1RjSZKbXXX1IXXa-36-32.png',
-  width: 100,
-  height: 80
-}, {
-  name: 'product element',
-  key: 'chanchuwu',
-  logo: 'https://img.alicdn.com/tfs/TB1ht.aisbpK1RjSZFyXXX_qFXa-32-32.png',
-  width: 100,
-  height: 80
-}];
+// const SIDEBAR_CARD_SHAPES = [{
+//   name: 'primary equipment',
+//   key: 'zhushebei',
+//   logo: 'https://img.alicdn.com/tfs/TB1eD9LdgHqK1RjSZJnXXbNLpXa-144-128.png',
+//   width: 100,
+//   height: 80
+// }, {
+//   name: 'auxiliary equipment',
+//   key: 'fujiashebei',
+//   logo: 'https://img.alicdn.com/tfs/TB1ejUeiAPoK1RjSZKbXXX1IXXa-36-32.png',
+//   width: 100,
+//   height: 80
+// }, {
+//   name: 'product element',
+//   key: 'chanchuwu',
+//   logo: 'https://img.alicdn.com/tfs/TB1ht.aisbpK1RjSZFyXXX_qFXa-32-32.png',
+//   width: 100,
+//   height: 80
+// }];
+import SIDEBAR_CARD_SHAPES from './shape-config/card-shape';
 
 export default class SideBar extends React.Component {
   constructor(props) {
@@ -188,6 +192,7 @@ export default class SideBar extends React.Component {
                 data-shape-label={shape.name}
                 data-shape-width={shape.width}
                 data-shape-height={shape.height}
+                data-shape-props={JSON.stringify(shape.dataProps)}
               >
                 <Tooltip
                   placement="top"
@@ -219,6 +224,7 @@ export default class SideBar extends React.Component {
                 data-shape-name={shape.key}
                 data-shape-label={shape.name}
                 title={shape.name}
+                data-shape-props={JSON.stringify(shape.dataProps)}
               >
                 <Tooltip
                   placement="top"
@@ -253,6 +259,7 @@ export default class SideBar extends React.Component {
                 data-shape-name={shape.key}
                 data-shape-label={shape.name}
                 title={shape.name}
+                data-shape-props={JSON.stringify(shape.dataProps)}
               >
                 <Tooltip
                   placement="top"
